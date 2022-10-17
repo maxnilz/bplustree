@@ -1,15 +1,11 @@
-package main
+package bplustree
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
 	"io"
-	"log"
 	"math"
-	"os"
 	"sort"
-	"strings"
 )
 
 // items stores items in a node.
@@ -198,18 +194,15 @@ func (n *node[kT, vT]) mayGrowUp(less LessFunc[kT]) (*node[kT, vT], bool) {
 		return root, true
 	}
 
-	index, found := parent.keys.find(promotedKey, less)
-	if found {
-		panic("unexpected key found at parent")
-	}
+	index, _ := parent.keys.find(promotedKey, less)
 	parent.keys.insertAt(index, promotedKey)
 	parent.children.insertAt(index+1, newNode)
 	return parent.mayGrowUp(less)
 }
 
 // remove removes an item from the subtree rooted at this node.
-// if no key found in the leaf node of the subtree, return false, otherwise,
-// remove it from leaf node, return true and the stop node if merge happens.
+// if no key found in the leaf node of the subtree, return false, otherwise, remove
+// it from leaf node, then the stop node(if merge happens), removed value and true.
 func (n *node[kT, vT]) remove(key kT, less LessFunc[kT]) (_ *node[kT, vT], _ vT, _ bool) {
 	if n.isLeaf {
 		return n.removeFromLeaf(key, less)
@@ -375,45 +368,4 @@ func (t *BPlusTree[kt, vT]) Print(w io.Writer) error {
 		return nil
 	}
 	return t.root.print(w)
-}
-
-func main() {
-	order := 4
-	less := func(a, b int) bool { return a < b }
-	tree := New[int, int](order, less)
-	key, value := 0, 0
-	reader := bufio.NewReader(os.Stdin)
-	for {
-		fmt.Print("-> ")
-		text, _ := reader.ReadString('\n')
-		// convert CRLF to LF
-		text = strings.Replace(text, "\n", "", -1)
-		if len(text) == 0 {
-			continue
-		}
-		instruction := []byte(text)
-		cmd := instruction[0]
-		switch cmd {
-		case 'd':
-			_, err := fmt.Sscanf(string(instruction[1:]), "%d", &key)
-			if err != nil {
-				log.Panicln(err)
-			}
-			var ok bool
-			value, ok = tree.Remove(key)
-			if ok {
-				fmt.Printf("removed %d with value %d\n", key, value)
-			}
-			_ = tree.Print(os.Stdout)
-		case 'i':
-			_, err := fmt.Sscanf(string(instruction[1:]), "%d %d", &key, &value)
-			if err != nil {
-				log.Panicln(err)
-			}
-			tree.Insert(key, value)
-			out := bytes.Buffer{}
-			_ = tree.Print(&out)
-			fmt.Println(out.String())
-		}
-	}
 }
