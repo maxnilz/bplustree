@@ -1,7 +1,8 @@
-## avltree
+## bplustree
 
-avltree is a topy project in pure Go for AVL tree implementation(Not concurrency safe).
+bplustree is a B+ tree implementation in go(A toy project, not concurrency-safe).
 
-For More on AVL tree, check [here](https://maxnilz.com/docs/001-ds/tree/007-avltree/)
+For More on B+ tree, check [here](https://maxnilz.com/docs/001-ds/tree/005-b+tree/).
 
-Check the interactive example for visualise test from [here](avltree/examples/it/main.go)
+Check the interactive example for visualise test in console
+from [here](https://github.com/maxnilz/tree/blob/main/bplustree/examples/it/main.go)
