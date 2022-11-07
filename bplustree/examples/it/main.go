@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/maxnilz/bplustree"
+	"github.com/maxnilz/tree/bplustree"
 )
 
 func main() {

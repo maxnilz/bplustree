@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestSearch(t *testing.T) {
+func TestSortSearch(t *testing.T) {
 	cases := []struct {
 		a      []int
 		search int

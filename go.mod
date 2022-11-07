@@ -1,3 +1,3 @@
-module github.com/maxnilz/bplustree
+module github.com/maxnilz/tree
 
 go 1.18
