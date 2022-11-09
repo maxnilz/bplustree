@@ -29,7 +29,7 @@ func main() {
 		case 'd':
 			_, err := fmt.Sscanf(string(instruction[1:]), "%d", &value)
 			if err != nil {
-				log.Panicln(err)
+				log.Println(err)
 			}
 			var ok bool
 			value, ok = tree.Remove(value)
@@ -40,7 +40,7 @@ func main() {
 		case 'i':
 			_, err := fmt.Sscanf(string(instruction[1:]), "%d", &value)
 			if err != nil {
-				log.Panicln(err)
+				log.Println(err)
 			}
 			tree.Insert(value)
 			_ = tree.Print(os.Stdout)

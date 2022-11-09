@@ -31,7 +31,7 @@ func main() {
 		case 'd':
 			_, err := fmt.Sscanf(string(instruction[1:]), "%d", &key)
 			if err != nil {
-				log.Panicln(err)
+				log.Println(err)
 			}
 			var ok bool
 			value, ok = tree.Remove(key)
@@ -42,7 +42,7 @@ func main() {
 		case 'i':
 			_, err := fmt.Sscanf(string(instruction[1:]), "%d %d", &key, &value)
 			if err != nil {
-				log.Panicln(err)
+				log.Println(err)
 			}
 			tree.Insert(key, value)
 			out := bytes.Buffer{}

@@ -114,7 +114,7 @@ func (n *node[T]) remove(value T, less LessFunc[T]) (*node[T], bool) {
 		}
 		// both left and right child are valid
 		if r.left != nil && r.right != nil {
-			cur := n // point left most node
+			cur := n.right // point left most node or the right child
 			for cur.left != nil {
 				cur = cur.left
 			}
